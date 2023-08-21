@@ -1,0 +1,23 @@
+.admin-dashboard-table {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #ccc;
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
+    }
+  }
+  
