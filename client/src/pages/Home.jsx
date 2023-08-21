@@ -4,42 +4,42 @@ import axios from "axios";
 import moment from "moment";
 
 const Home = () => {
-  // const [posts, setPosts] = useState([]);
-  const posts = [
-    {
-      _id: {
-        $oid: "64d7a3e46badea8b650d21df",
-      },
-      author: {
-        $oid: "64d7a35e6badea8b650d21da",
-      },
-      title: "dfvgbhnjm,",
-      desc: "<p>dcfvgbhnjm,</p>",
-      img: "16918537958131.jpg",
-      cat: "science",
-      likes: [],
-      comments: [],
-      createdAt: {
-        $date: "2023-08-12T15:23:16.551Z",
-      },
-      updatedAt: {
-        $date: "2023-08-12T15:23:16.551Z",
-      },
-      __v: 0,
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  // const posts = [
+  //   {
+  //     _id: {
+  //       $oid: "64d7a3e46badea8b650d21df",
+  //     },
+  //     author: {
+  //       $oid: "64d7a35e6badea8b650d21da",
+  //     },
+  //     title: "dfvgbhnjm,",
+  //     desc: "<p>dcfvgbhnjm,</p>",
+  //     img: "16918537958131.jpg",
+  //     cat: "science",
+  //     likes: [],
+  //     comments: [],
+  //     createdAt: {
+  //       $date: "2023-08-12T15:23:16.551Z",
+  //     },
+  //     updatedAt: {
+  //       $date: "2023-08-12T15:23:16.551Z",
+  //     },
+  //     __v: 0,
+  //   },
+  // ];
   const cat = useLocation().search;
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await axios.get(`/posts${cat}`);
-  //       setPosts(res.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [cat]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3001/api/posts${cat}`);
+        setPosts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [cat]);
 
   return (
     <div className="home">
