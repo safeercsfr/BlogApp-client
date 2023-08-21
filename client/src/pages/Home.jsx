@@ -7,7 +7,7 @@ import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
-  const [post, setPosts] = useState([]);
+  // const [post, setPosts] = useState([]);
   const posts = [
     {
       _id: {
@@ -33,17 +33,17 @@ const Home = () => {
   ];
   console.log(posts, "===");
   const cat = useLocation().search;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`/posts${cat}`);
-        setPosts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [cat]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await axios.get(`/posts${cat}`);
+  //       setPosts(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [cat]);
 
   return (
     <>
