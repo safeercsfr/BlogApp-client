@@ -7,7 +7,8 @@ import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const posts=[]
   console.log(posts,'===');
   const cat = useLocation().search;
   useEffect(() => {
