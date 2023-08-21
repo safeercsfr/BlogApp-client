@@ -7,9 +7,31 @@ import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
-  // const [posts, setPosts] = useState([]);
-  const posts=[]
-  console.log(posts,'===');
+  const [post, setPosts] = useState([]);
+  const posts = [
+    {
+      _id: {
+        $oid: "64d7a3e46badea8b650d21df",
+      },
+      author: {
+        $oid: "64d7a35e6badea8b650d21da",
+      },
+      title: "dfvgbhnjm,",
+      desc: "<p>dcfvgbhnjm,</p>",
+      img: "16918537958131.jpg",
+      cat: "science",
+      likes: [],
+      comments: [],
+      createdAt: {
+        $date: "2023-08-12T15:23:16.551Z",
+      },
+      updatedAt: {
+        $date: "2023-08-12T15:23:16.551Z",
+      },
+      __v: 0,
+    },
+  ];
+  console.log(posts, "===");
   const cat = useLocation().search;
   useEffect(() => {
     const fetchData = async () => {
