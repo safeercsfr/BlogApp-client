@@ -6,7 +6,7 @@ export const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
     const login = async (inputs) => {
-        const res = await axios.post("/login", inputs)
+        const res = await axios.post("https://blogapp-server.up.railway.app/api/login", inputs)
         setCurrentUser(res?.data);
     }
 
