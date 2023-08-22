@@ -39,7 +39,7 @@ const Single = () => {
 
   const addComment = async () => {
     try {
-      const response = await axios.patch(`/posts/${postId}/comment`, {
+      const response = await axios.patch(`https://blogapp-server.up.railway.app/api/posts/${postId}/comment`, {
         comment,
         userId,
       });
@@ -53,7 +53,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts/${postId}`);
+        const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts/${postId}`);
         setPost(res.data);
         setComments(res.data.comments);
       } catch (error) {
@@ -75,7 +75,7 @@ const Single = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axios.delete(`/posts/${postId}`).then(() => {
+          await axios.delete(`https://blogapp-server.up.railway.app/api/posts/${postId}`).then(() => {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
             navigate("/");
           });
