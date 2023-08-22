@@ -29,7 +29,7 @@ const Single = () => {
 
   const toggleLike = async () => {
     try {
-      const res = await axios.patch(`/posts/${postId}/like`, { userId });
+      const res = await axios.patch(`https://blogapp-server.up.railway.app/api/posts/${postId}/like`, { userId });
       setPost(res.data);
       setLiked(!liked);
     } catch (error) {

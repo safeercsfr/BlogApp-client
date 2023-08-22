@@ -38,14 +38,14 @@ const Write = () => {
     const plainText = quillInstance?.getEditor().getText();
     try {
       state
-        ? await axios.put(`/posts/${state._id}`, {
+        ? await axios.put(`https://blogapp-server.up.railway.app/api/posts/${state._id}`, {
             author: JSON.parse(localStorage.getItem("user")),
             title,
             desc: plainText,
             cat,
             img: file ? imgUrl : img,
           })
-        : await axios.post(`/posts/`, {
+        : await axios.post(`https://blogapp-server.up.railway.app/api/posts/`, {
             author: JSON.parse(localStorage.getItem("user")),
             title,
             desc: plainText,

@@ -11,7 +11,7 @@ const AdminHome = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const res = await axios.get(`/posts${cat}`);
+          const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts${cat}`);
           setPosts(res.data);
         } catch (error) {
           console.log(error);

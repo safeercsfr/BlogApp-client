@@ -32,7 +32,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/posts${cat}`);
+        const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts${cat}`);
         setPosts(res.data);
       } catch (error) {
         console.log(error);

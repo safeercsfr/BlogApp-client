@@ -25,7 +25,7 @@ const Navbar = () => {
     if (!key) {
     } else {
       try {
-        const res = await axios.get(`/posts/searchPost/${key}`);
+        const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts/searchPost/${key}`);
         if (res.data.length < 1) {
           setOpen(false);
         }

@@ -8,7 +8,7 @@ const Menu = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/posts");
+        const res = await axios.get("https://blogapp-server.up.railway.app/api/posts");
         const filteredPosts = res.data.filter(
           (post) => post._id !== props.postId
         );
