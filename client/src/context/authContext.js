@@ -11,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const logout = async (inputs) => {
-        await axios.post("/logout")
+        await axios.post("https://blogapp-server.up.railway.app/api/logout")
         setCurrentUser(null);
     }
 
