@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 const Login = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -20,11 +22,20 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      navigate("/");
     } catch (error) {
       setError(error.response.data);
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      if (currentUser.role === "user") {
+        navigate("/");
+      } else {
+        navigate("/dashboard");
+      }
+    }
+  }, [currentUser, navigate]);
 
   return (
     <div className="auth">

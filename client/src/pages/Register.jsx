@@ -19,7 +19,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://blogapp-server.up.railway.app/api/signup", inputs);
+      await axios.post(
+        "https://blogapp-server.up.railway.app/api/signup",
+        inputs
+      );
       navigate("/login");
     } catch (error) {
       setError(error.response.data);

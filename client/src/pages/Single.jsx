@@ -29,7 +29,10 @@ const Single = () => {
 
   const toggleLike = async () => {
     try {
-      const res = await axios.patch(`https://blogapp-server.up.railway.app/api/posts/${postId}/like`, { userId });
+      const res = await axios.patch(
+        `https://blogapp-server.up.railway.app/api/posts/${postId}/like`,
+        { userId }
+      );
       setPost(res.data);
       setLiked(!liked);
     } catch (error) {
@@ -39,10 +42,13 @@ const Single = () => {
 
   const addComment = async () => {
     try {
-      const response = await axios.patch(`https://blogapp-server.up.railway.app/api/posts/${postId}/comment`, {
-        comment,
-        userId,
-      });
+      const response = await axios.patch(
+        `https://blogapp-server.up.railway.app/api/posts/${postId}/comment`,
+        {
+          comment,
+          userId,
+        }
+      );
       setComment("");
       setComments([...comments, response.data]);
     } catch (error) {
@@ -53,7 +59,9 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts/${postId}`);
+        const res = await axios.get(
+          `https://blogapp-server.up.railway.app/api/posts/${postId}`
+        );
         setPost(res.data);
         setComments(res.data.comments);
       } catch (error) {
@@ -75,10 +83,12 @@ const Single = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axios.delete(`https://blogapp-server.up.railway.app/api/posts/${postId}`).then(() => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            navigate("/");
-          });
+          await axios
+            .delete(`https://blogapp-server.up.railway.app/api/posts/${postId}`)
+            .then(() => {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              navigate("/");
+            });
         }
       });
     } catch (error) {

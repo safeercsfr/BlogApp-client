@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import Logo from "../images/Logo.png";
 import search from "../images/search.png";
@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchKey, setsearchKey] = useState("");
@@ -25,7 +25,9 @@ const Navbar = () => {
     if (!key) {
     } else {
       try {
-        const res = await axios.get(`https://blogapp-server.up.railway.app/api/posts/searchPost/${key}`);
+        const res = await axios.get(
+          `https://blogapp-server.up.railway.app/api/posts/searchPost/${key}`
+        );
         if (res.data.length < 1) {
           setOpen(false);
         }
@@ -35,6 +37,12 @@ const Navbar = () => {
         console.log(error);
       }
     }
+  };
+
+  const adminLogout = async () => {
+    await logout();
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -55,20 +63,38 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container">
-        <Link
-          onClick={() => {
-            setIsSearchActive(false);
-            setOpen(false);
-          }}
-          className="link"
-          to="/">
-          <div className="logo">
-            {/* <h3>B Talk</h3> */}
-            <img className="logo" src={Logo} alt="" />
-          </div>
-        </Link>
+        {currentUser?.role === "admin" ? (
+          <Link
+            onClick={() => {
+              setIsSearchActive(false);
+              setOpen(false);
+            }}
+            className="link"
+            to="/dashboard"
+          >
+            <div className="logo">
+              <h3>Blog App</h3>
+              {/* <img className="logo" src={Logo} alt="" /> */}
+            </div>
+          </Link>
+        ) : (
+          <Link
+            onClick={() => {
+              setIsSearchActive(false);
+              setOpen(false);
+            }}
+            className="link"
+            to="/"
+          >
+            <div className="logo">
+              <h3>Blog App</h3>
+              {/* <img className="logo" src={Logo} alt="" /> */}
+            </div>
+          </Link>
+        )}
+
         <div className="links">
-          {!isSearchActive && (
+          {!isSearchActive && currentUser?.role !== "admin" && (
             <>
               <Link className="link" to="/?cat=art">
                 <h6>ART</h6>
@@ -101,12 +127,14 @@ const Navbar = () => {
               placeholder="Search blogs..."
             />
           )}
-          <img
-            onClick={handleSearchToggle}
-            className="search-icon"
-            src={search}
-            alt=""
-          />
+          {currentUser?.role !== "admin" && (
+            <img
+              onClick={handleSearchToggle}
+              className="search-icon"
+              src={search}
+              alt=""
+            />
+          )}
 
           {open && searchResults.length > 0 && searchKey.length > 0 && (
             <ul className="search-suggestions">
@@ -119,7 +147,8 @@ const Navbar = () => {
                       setOpen(false);
                     }}
                     className="search-suggestions__item"
-                    key={post.id}>
+                    key={post.id}
+                  >
                     {post.title}
                   </li>
                 </Link>
@@ -128,18 +157,21 @@ const Navbar = () => {
           )}
 
           <span>{currentUser?.username}</span>
-          {currentUser ? (
+          {currentUser?.role === "user" ? (
             <span onClick={logout}>Logout</span>
+          ) : currentUser?.role === "admin" ? (
+            <span onClick={adminLogout}>Logout</span>
           ) : (
             <Link className="link" to="/login">
               Login
             </Link>
           )}
-
-          <Link className="link" to="/write">
-            {" "}
-            <span className="write">Write</span>
-          </Link>
+          {currentUser?.role === "admin" && (
+            <Link className="link" to="/write">
+              {" "}
+              <span className="write">Write</span>
+            </Link>
+          )}
         </div>
       </div>
     </div>

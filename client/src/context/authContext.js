@@ -1,25 +1,33 @@
-import axios from "axios"
-import { createContext, useEffect, useState } from "react"
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
-    const login = async (inputs) => {
-        const res = await axios.post("https://blogapp-server.up.railway.app/api/login", inputs)
-        setCurrentUser(res?.data);
-    }
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
-    const logout = async (inputs) => {
-        await axios.post("https://blogapp-server.up.railway.app/api/logout")
-        setCurrentUser(null);
-    }
+  const login = async (inputs) => {
+    const res = await axios.post(
+      "https://blogapp-server.up.railway.app/api/login",
+      inputs
+    );
+    setCurrentUser(res.data);
+  };
 
-    useEffect(() => {
-        localStorage.setItem("user", JSON.stringify(currentUser))
-    }, [currentUser])
+  const logout = async (inputs) => {
+    await axios.post("https://blogapp-server.up.railway.app/api/logout");
+    setCurrentUser(null);
+  };
 
-    return (
-        <AuthContext.Provider value={{ currentUser, login, logout }} >{children}</AuthContext.Provider>
-    )
-}
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  }, [currentUser]);
+
+  return (
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

@@ -19,7 +19,10 @@ const Write = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await axios.post("https://blogapp-server.up.railway.app/api/upload", formData);
+      const res = await axios.post(
+        "https://blogapp-server.up.railway.app/api/upload",
+        formData
+      );
       return res.data;
     } catch (err) {
       console.log(err);
@@ -35,20 +38,23 @@ const Write = () => {
     e.preventDefault();
 
     const imgUrl = await upload();
-    const plainText = quillInstance?.getEditor().getText();
+    // const plainText = quillInstance?.getEditor().getText();
     try {
       state
-        ? await axios.put(`https://blogapp-server.up.railway.app/api/posts/${state._id}`, {
-            author: JSON.parse(localStorage.getItem("user")),
-            title,
-            desc: plainText,
-            cat,
-            img: file ? imgUrl : img,
-          })
+        ? await axios.put(
+            `https://blogapp-server.up.railway.app/api/posts/${state._id}`,
+            {
+              author: JSON.parse(localStorage.getItem("user")),
+              title,
+              desc: value,
+              cat,
+              img: file ? imgUrl : img,
+            }
+          )
         : await axios.post(`https://blogapp-server.up.railway.app/api/posts/`, {
             author: JSON.parse(localStorage.getItem("user")),
             title,
-            desc: plainText,
+            desc: value,
             cat,
             img: file ? imgUrl : "",
           });
@@ -59,7 +65,7 @@ const Write = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/login");
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
