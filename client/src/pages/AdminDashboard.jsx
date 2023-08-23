@@ -86,8 +86,8 @@ const AdminDashboard = () => {
               <td>
                 <img
                   style={{ width: "40px", height: "40px" }}
-                  src={`../upload/${post?.img}`}
-                  alt=""
+                  src={post?.img}
+                  alt="blogPost"
                 />
               </td>
               <td>{post.cat}</td>

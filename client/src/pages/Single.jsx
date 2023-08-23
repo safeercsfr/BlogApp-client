@@ -99,7 +99,7 @@ const Single = () => {
   return (
     <div className="single">
       <div className="content">
-        <img className="content_image" src={`../upload/${post?.img}`} alt="" />
+        <img className="content_image" src={post?.img} alt="blogPost" />
         <div className="user">
           <img className="profileimg" src={Avatar} alt="" />
           <div className="info">
